@@ -1,9 +1,9 @@
+# GitHub OAuth Configuration
 backend:
   name: github
   repo: mail-drafts7/fumadocs_decapcrm_setup
   branch: main
-  base_url: http://localhost:3001
-  auth_endpoint: api/auth
+  auth_endpoint: /api/auth
 
 site_url: http://localhost:3001
 display_url: http://localhost:3001
