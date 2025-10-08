@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
@@ -16,24 +16,33 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/mail-drafts7/fumadocs_decapcrm_setup/issues"
   },
   "homepage": "https://github.com/mail-drafts7/fumadocs_decapcrm_setup#readme",
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@types/node": "^24.7.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "decap-cms-app": "^3.8.4",
+    "decap-cms-media-library-cloudinary": "^3.1.0",
+    "decap-cms-media-library-uploadcare": "^3.0.2",
     "fumadocs-core": "^15.8.4",
     "fumadocs-mdx": "^12.0.3",
     "fumadocs-ui": "^15.8.4",
     "next": "^15.5.4",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.0.4",
-    "vite": "^7.1.9"
+    "@next/eslint-plugin-next": "^15.5.4",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.5.4",
+    "postcss": "^8.4.0"
   }
 }

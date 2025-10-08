@@ -1,0 +1,360 @@
+---
+title: Getting Started
+description: Complete guide to get started with Knowledge Pack - from installation to deployment
+---
+
+# Getting Started
+
+Welcome to Knowledge Pack - a powerful documentation platform built for modern development teams. This comprehensive guide will walk you through everything you need to know to get started.
+
+## What is Knowledge Pack?
+
+Knowledge Pack is a modern documentation platform that combines the simplicity of Markdown with the power of React components. It's designed to help teams create, maintain, and share beautiful documentation that scales with your project.
+
+### Key Features
+
+- **📝 Markdown-first**: Write content in familiar Markdown syntax
+- **⚡ Fast Performance**: Built on Next.js for optimal performance
+- **🎨 Customizable Design**: Beautiful themes and custom styling options
+- **🔍 Full-text Search**: Powerful search capabilities out of the box
+- **📱 Mobile Responsive**: Works perfectly on all devices
+- **🌙 Dark Mode Support**: Automatic dark/light mode switching
+- **🚀 Easy Deployment**: Deploy anywhere with static site generation
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed on your system:
+
+- **Node.js 18+** - [Download from nodejs.org](https://nodejs.org/)
+- **npm** or **yarn** - Package manager (comes with Node.js)
+- **Git** - Version control system
+- **Code Editor** - VS Code, WebStorm, or your preferred editor
+
+### Checking Your Environment
+
+Verify your installation by running these commands in your terminal:
+
+```bash
+node --version  # Should be 18.0.0 or higher
+npm --version   # Should be 8.0.0 or higher
+git --version   # Any recent version
+```
+
+## Quick Start
+
+### 1. Installation
+
+Create a new Knowledge Pack project using our CLI tool:
+
+```bash
+# Install the Knowledge Pack CLI
+npm install -g @knowledgepack/cli
+
+# Create a new project
+npx create-knowledge-pack my-docs
+cd my-docs
+
+# Install dependencies
+npm install
+```
+
+Or clone our starter template:
+
+```bash
+# Clone the starter template
+git clone https://github.com/knowledgepack/starter-template.git my-docs
+cd my-docs
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### 2. Project Structure
+
+After installation, your project structure will look like this:
+
+```
+my-docs/
+├── app/                    # Next.js app directory
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Homepage
+│   └── docs/              # Documentation pages
+├── content/               # Markdown content
+│   └── docs/              # Documentation files
+│       ├── getting-started.mdx
+│       ├── configuration.mdx
+│       └── deployment.mdx
+├── lib/                   # Utility functions
+├── public/                # Static assets
+├── package.json
+└── knowledge.config.js    # Configuration file
+```
+
+### 3. Configuration
+
+Create or update your `knowledge.config.js` file:
+
+```javascript
+/** @type {import('@knowledgepack/core').Config} */
+export default {
+  // Site metadata
+  title: 'My Documentation',
+  description: 'Comprehensive documentation for my project',
+  
+  // Theme configuration
+  theme: {
+    primaryColor: '#3b82f6',
+    accentColor: '#10b981',
+    darkMode: 'auto', // 'light', 'dark', or 'auto'
+  },
+  
+  // Navigation structure
+  navigation: [
+    { title: 'Getting Started', href: '/getting-started' },
+    { title: 'API Reference', href: '/api' },
+    { title: 'Examples', href: '/examples' },
+  ],
+  
+  // Features
+  features: {
+    search: true,
+    analytics: true,
+    editLinks: true,
+    feedback: true,
+  },
+  
+  // Integrations
+  integrations: {
+    github: 'your-username/your-repo',
+    discord: 'your-discord-invite',
+  }
+}
+```
+
+## Creating Your First Page
+
+### 1. Add Content
+
+Create a new Markdown file in the `content/docs/` directory:
+
+```markdown
+---
+title: My First Page
+description: This is my first documentation page
+---
+
+# My First Page
+
+Welcome to your first Knowledge Pack page! You can use all standard Markdown features:
+
+## Headers and Text
+
+This is a paragraph with **bold text** and *italic text*.
+
+## Code Examples
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('Knowledge Pack'));
+```
+
+## Lists
+
+- Feature one
+- Feature two
+- Feature three
+
+## Links and Images
+
+[Visit our website](https://knowledgepack.com)
+
+![Knowledge Pack Logo](/images/logo.png)
+```
+
+### 2. Update Navigation
+
+Add your new page to the navigation in `knowledge.config.js`:
+
+```javascript
+navigation: [
+  { title: 'Getting Started', href: '/getting-started' },
+  { title: 'My First Page', href: '/my-first-page' }, // Add this line
+  { title: 'API Reference', href: '/api' },
+]
+```
+
+## Advanced Features
+
+### Custom Components
+
+Knowledge Pack supports custom React components in your Markdown:
+
+```mdx
+---
+title: Advanced Features
+---
+
+import { Callout, CodeBlock, Tabs } from '@knowledgepack/components'
+
+# Advanced Features
+
+<Callout type="info">
+  This is an information callout that stands out from regular text.
+</Callout>
+
+<Tabs>
+  <Tab title="JavaScript">
+    ```javascript
+    const example = 'JavaScript code here';
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    example = "Python code here"
+    ```
+  </Tab>
+</Tabs>
+```
+
+### Search Configuration
+
+Enable and customize search functionality:
+
+```javascript
+// knowledge.config.js
+export default {
+  search: {
+    provider: 'algolia', // or 'local'
+    algolia: {
+      appId: 'your-app-id',
+      apiKey: 'your-api-key',
+      indexName: 'your-index',
+    }
+  }
+}
+```
+
+### SEO Optimization
+
+Optimize your documentation for search engines:
+
+```markdown
+---
+title: Page Title
+description: Page description for SEO
+keywords: [knowledge, pack, documentation]
+author: Your Name
+image: /images/og-image.png
+---
+```
+
+## Development Workflow
+
+### Local Development
+
+Start the development server:
+
+```bash
+# Start development server
+npm run dev
+
+# Open in browser
+open http://localhost:3000
+```
+
+### Building for Production
+
+Build your documentation for production:
+
+```bash
+# Build the project
+npm run build
+
+# Preview the build
+npm run preview
+```
+
+### Content Management
+
+- **Edit content**: Modify `.mdx` files in the `content/` directory
+- **Add assets**: Place images and files in the `public/` directory
+- **Configure navigation**: Update `knowledge.config.js`
+- **Customize styles**: Edit CSS files or use Tailwind classes
+
+## Deployment Options
+
+### Vercel (Recommended)
+
+Deploy to Vercel with zero configuration:
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy to Vercel
+vercel
+```
+
+
+### Self-hosted
+
+Deploy to your own server:
+
+```bash
+# Build static files
+npm run build
+npm run export
+
+# Upload the 'out' folder to your server
+```
+
+## Next Steps
+
+Now that you have Knowledge Pack set up, here are some recommended next steps:
+
+1. **📖 Explore Documentation**: Read through all available guides and tutorials
+2. **🎨 Customize Design**: Modify themes, colors, and layouts to match your brand
+3. **🔌 Add Integrations**: Connect with GitHub, Discord, analytics tools
+4. **📝 Create Content**: Start writing your documentation pages
+5. **🚀 Deploy**: Share your documentation with the world
+
+## Getting Help
+
+If you need assistance or have questions:
+
+- **📚 Documentation**: Browse our complete documentation
+- **💬 Community**: Join our Discord community for support
+- **🐛 Issues**: Report bugs on our GitHub repository
+- **💡 Feature Requests**: Suggest new features and improvements
+
+## Troubleshooting
+
+### Common Issues
+
+**Node.js Version Error**
+```bash
+# Update Node.js to version 18 or higher
+nvm install 18
+nvm use 18
+```
+
+**Build Errors**
+```bash
+# Clear cache and reinstall dependencies
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Port Already in Use**
+```bash
+# Use a different port
+npm run dev -- --port 3001
+```
+
+For more help, check our [troubleshooting guide](/troubleshooting) or reach out to our community.

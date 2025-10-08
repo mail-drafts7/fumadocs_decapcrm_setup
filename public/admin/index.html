@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager</title>
+  <link rel="cms-config-url" type="text/yaml" href="/api/admin/config" />
+</head>
+<body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Handle successful authentication redirect
+    if (window.location.hash === '#success') {
+      console.log('Authentication successful, clearing hash');
+      window.history.replaceState(null, null, window.location.pathname);
+      
+      // Small delay to ensure token is stored, then reload
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+
+    // Check if we have authentication data and initialize CMS
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, checking authentication...');
+      
+      // Override the default GitHub authentication
+      if (window.CMS) {
+        // Listen for login attempts
+        document.addEventListener('click', function(e) {
+          const target = e.target;
+          if (target && (target.textContent || '').toLowerCase().includes('github')) {
+            console.log('GitHub login button clicked, redirecting to custom auth');
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = '/api/auth?provider=github';
+          }
+        }, true);
+      }
+    });
+
+    // Initialize CMS after script loads
+    window.addEventListener('load', function() {
+      if (window.CMS) {
+        console.log('CMS loaded successfully');
+      }
+    });
+  </script>
+</body>
+</html>
