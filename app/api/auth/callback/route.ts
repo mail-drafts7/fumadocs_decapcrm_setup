@@ -103,13 +103,29 @@ export async function GET(request: NextRequest) {
     </div>
     <script>
       (function() {
-        // Store the auth token for Decap CMS
-        const authData = ${authMessage};
-        localStorage.setItem('decap-cms-auth', JSON.stringify(authData));
+        // Store the auth token in the format Decap CMS expects
+        const authData = {
+          token: '${tokenData.access_token}',
+          provider: 'github'
+        };
+        
+        // Store in localStorage with the exact key Decap CMS looks for
+        localStorage.setItem('netlify-cms-user', JSON.stringify({
+          login: 'authenticated',
+          token: '${tokenData.access_token}',
+          backendName: 'github'
+        }));
+        
+        // Also store in the decap format for compatibility
+        localStorage.setItem('decap-cms-user', JSON.stringify({
+          login: 'authenticated', 
+          token: '${tokenData.access_token}',
+          backendName: 'github'
+        }));
         
         // Automatically redirect to admin CMS with Documentation collection after 2 seconds
         setTimeout(() => {
-          window.location.href = '/admin#/collections/docs';
+          window.location.href = 'http://localhost:3001/admin/index.html#/collections/docs';
         }, 2000);
       })();
     </script>

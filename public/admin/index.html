@@ -11,42 +11,47 @@
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Handle successful authentication redirect
-    if (window.location.hash === '#success') {
-      console.log('Authentication successful, clearing hash');
-      window.history.replaceState(null, null, window.location.pathname);
-      
-      // Small delay to ensure token is stored, then reload
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-    }
-
-    // Check if we have authentication data and initialize CMS
+    // Simple authentication override for GitHub login
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM loaded, checking authentication...');
       
-      // Override the default GitHub authentication
-      if (window.CMS) {
-        // Listen for login attempts
+      // Override GitHub login button clicks
+      setTimeout(() => {
+        // Use event delegation to handle dynamically created login buttons
         document.addEventListener('click', function(e) {
-          const target = e.target;
-          if (target && (target.textContent || '').toLowerCase().includes('github')) {
-            console.log('GitHub login button clicked, redirecting to custom auth');
-            e.preventDefault();
-            e.stopPropagation();
-            window.location.href = '/api/auth?provider=github';
+          // Check if clicked element or its parent is a GitHub login button
+          let target = e.target;
+          let attempts = 0;
+          
+          while (target && attempts < 5) {
+            const text = (target.textContent || '').toLowerCase();
+            const isGitHubButton = text.includes('login with github') || 
+                                   text.includes('github') && (text.includes('login') || text.includes('sign'));
+            
+            if (isGitHubButton) {
+              console.log('GitHub login button clicked, redirecting to custom auth');
+              e.preventDefault();
+              e.stopPropagation();
+              window.location.href = '/api/auth?provider=github';
+              return false;
+            }
+            
+            target = target.parentElement;
+            attempts++;
           }
         }, true);
-      }
+      }, 1000);
     });
 
-    // Initialize CMS after script loads
-    window.addEventListener('load', function() {
-      if (window.CMS) {
-        console.log('CMS loaded successfully');
-      }
-    });
+    // Handle successful authentication redirect - only once and only from auth flow
+    if (window.location.hash === '#/success' && !sessionStorage.getItem('redirected_to_collections')) {
+      console.log('Authentication successful, redirecting to collections/docs');
+      sessionStorage.setItem('redirected_to_collections', 'true');
+      // Direct redirect to collections/docs after success
+      setTimeout(() => {
+        window.location.href = '/admin/index.html#/collections/docs';
+      }, 1000);
+    }
   </script>
 </body>
 </html>

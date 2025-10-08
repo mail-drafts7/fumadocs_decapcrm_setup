@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 
 export default function AdminPage() {
   useEffect(() => {
-    // Redirect to the static admin page that loads Decap CMS
-    window.location.href = '/admin/index.html';
+    // Preserve hash fragment when redirecting to static HTML file
+    const currentHash = window.location.hash || '';
+    window.location.replace('/admin/index.html' + currentHash);
   }, []);
 
   return (
